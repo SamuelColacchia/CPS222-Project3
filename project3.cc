@@ -33,9 +33,18 @@ void ThreadedBinarySearchTree::erase(Iterator iter)
 { /* STUB - REPLACE WITH REAL CODE */
 }
 
-
+//NOTE ucomplete
 bool ThreadedBinarySearchTree::empty() const
-{ /* STUB - REPLACE WITH REAL CODE */
+{
+  //Below shows how to access the child of node
+  if (isThread(_header->_lchild)) {
+
+    return true;
+  }
+  else
+  {
+    return false;
+  }
   return true;
 }
 
@@ -179,9 +188,9 @@ Iterator Iterator::operator --(int)
   return result;
 }
 
-
+//NOTE untested | not sure if it works
 Iterator& Iterator::insucc()
-{ /* STUB - REPLACE WITH REAL CODE */
+{
   if (isThread(_ptr->_rchild))
   {
     _ptr = makePointer(_ptr->_rchild);
