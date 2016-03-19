@@ -182,6 +182,18 @@ Iterator Iterator::operator --(int)
 
 Iterator& Iterator::insucc()
 { /* STUB - REPLACE WITH REAL CODE */
+  if (isThread(_ptr->_rchild))
+  {
+    _ptr = makePointer(_ptr->_rchild);
+  }
+  else
+  {
+    _ptr = _ptr->_rchild;
+    while (!isThread(_ptr->_lchild))
+    {
+      _ptr = _ptr->_lchild;
+    }
+  }
   return *this;
 }
 
