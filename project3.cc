@@ -1,0 +1,171 @@
+// SOMETHING NEEDS TO GO HERE!  WHY NOT DO IT NOW?
+
+#include "project3.h"
+#include <iomanip>
+using namespace std;
+
+/*
+ * Methods of class ThreadedBinarySearchTree
+ *
+ */
+
+typedef ThreadedBinarySearchTree::Iterator Iterator;
+
+ThreadedBinarySearchTree::ThreadedBinarySearchTree()
+: _header(new  Node())
+{
+    _header -> _lchild = makeThread(_header);
+    _header -> _rchild = _header;
+}
+
+ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
+{ /* STUB - REPLACE WITH REAL CODE */ }
+
+void ThreadedBinarySearchTree::insert(string key, int value)
+{ /* STUB - REPLACE WITH REAL CODE */ }
+
+void ThreadedBinarySearchTree::erase(Iterator iter)
+{ /* STUB - REPLACE WITH REAL CODE */ }
+
+bool ThreadedBinarySearchTree::empty() const
+{ /* STUB - REPLACE WITH REAL CODE */ return true; }
+
+Iterator ThreadedBinarySearchTree::lookup(string key) const
+{ /* STUB - REPLACE WITH REAL CODE */ return end(); }
+
+Iterator ThreadedBinarySearchTree::inorder_begin() const
+{ return Iterator(_header, _header, Iterator::INORDER).insucc(); }
+
+Iterator ThreadedBinarySearchTree::inorder_rbegin()const
+{ return Iterator(_header, _header, Iterator::INORDER).inpred(); }
+
+Iterator ThreadedBinarySearchTree::preorder_begin() const
+{ return Iterator(_header, _header, Iterator::PREORDER).presucc(); }
+
+Iterator ThreadedBinarySearchTree::preorder_rbegin() const
+{ return Iterator(_header, _header, Iterator::PREORDER).prepred(); }
+
+Iterator ThreadedBinarySearchTree::postorder_begin() const
+{ return Iterator(_header, _header, Iterator::POSTORDER).postsucc(); }
+
+Iterator ThreadedBinarySearchTree::postorder_rbegin() const
+{ return Iterator(_header, _header, Iterator::POSTORDER).postpred(); }
+
+Iterator ThreadedBinarySearchTree::end() const
+{ return Iterator(_header, _header, Iterator::UNDEFINED); }
+
+/*
+ * Thread manipulation methods
+ *
+ */
+
+#define THREAD_FLAG_MASK 0x8000000000000000
+
+bool ThreadedBinarySearchTree::isThread(Node * ptr)
+{ return (((long) ptr) & THREAD_FLAG_MASK) != 0; }
+ 
+ThreadedBinarySearchTree::Node * ThreadedBinarySearchTree::makeThread(Node * ptr)
+{ return (Node *) (((long) ptr) | THREAD_FLAG_MASK); }
+
+ThreadedBinarySearchTree::Node * ThreadedBinarySearchTree::makePointer(Node * thread)
+{ return (Node *) (((long) thread) & ~THREAD_FLAG_MASK); }
+
+/*
+ * Methods of class ThreadedBinarySearchTree::Iterator
+ *
+ */
+        
+Iterator::Iterator()
+  : _header(NULL), _ptr(NULL), _order(UNDEFINED)
+{ }
+
+Iterator & Iterator::operator ++()
+{
+    switch (_order)
+    {
+        case INORDER:   return insucc();
+        case PREORDER:  return presucc();
+        case POSTORDER: return postsucc();
+        default:        return * this;
+    }
+}
+
+Iterator & Iterator::operator --()
+{
+    switch (_order)
+    {
+        case INORDER:   return inpred();
+        case PREORDER:  return prepred();
+        case POSTORDER: return postpred();
+        default:        return * this;
+    }
+}
+
+Iterator Iterator::operator ++(int)
+{
+    Iterator result = * this;
+    operator ++();
+    return result;
+}
+
+Iterator Iterator::operator --(int)
+{
+    Iterator result = * this;
+    operator --();
+    return result;
+}
+
+Iterator & Iterator::insucc()
+{ /* STUB - REPLACE WITH REAL CODE */
+    return * this;
+}
+
+Iterator & Iterator::inpred()
+{ /* STUB - REPLACE WITH REAL CODE */
+    return * this;
+}
+
+Iterator & Iterator::presucc()
+{ /* STUB - REPLACE WITH REAL CODE */
+    return * this;
+}
+
+Iterator & Iterator::prepred()
+{ /* STUB - REPLACE WITH REAL CODE */
+    return * this;
+}
+
+Iterator & Iterator::postsucc()
+{ /* STUB - REPLACE WITH REAL CODE */
+    return * this;
+}
+
+Iterator & Iterator::postpred()
+{ /* STUB - REPLACE WITH REAL CODE */
+    return * this;
+}
+
+Iterator Iterator::parent() const
+{ /* STUB - REPLACE WITH REAL CODE */
+  return Iterator(_header, (Node *) _header, Iterator::UNDEFINED);
+}
+
+string Iterator::key() const
+{ return _ptr -> _key; }
+
+int Iterator::value() const
+{ return _ptr -> _value; }
+
+bool Iterator::operator == (const Iterator & other) const
+{ return _ptr == other._ptr && _ptr != NULL; }
+
+bool Iterator::operator != (const Iterator & other) const
+{ return _ptr != other._ptr || _ptr == NULL; }
+
+Iterator::Iterator(const Node * header,
+                   Node * ptr, 
+                   Order order)
+  : _header(header), _ptr(ptr), _order(order)
+{ }
+
+// ostream operator << is in a separate file
