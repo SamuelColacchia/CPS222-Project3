@@ -75,15 +75,15 @@ void ThreadedBinarySearchTree::insertr(string key, int value, Node * & root)
   //
   if (root == NULL)
   {
-    Node newnode = new node();
+    Node *newnode = new Node();
     root = newnode;
 
-    newnode
+    
   }
-  else if (key < root->_key)
-  {
-    insertr(key, value, root->)
-  }
+  // else if (key < root->_key)
+  // {
+  //
+  // }
 
 }
 
