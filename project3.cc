@@ -21,46 +21,54 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
 
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
-
 }
+
 
 void ThreadedBinarySearchTree::insert(string key, int value)
 {
   if (_header == NULL)
-     // Special case - totally empty tree
-     _header = new Node();
+  {
+    // Special case - totally empty tree
+    _header = new Node();
+  }
 
-     else
-     {
-         // Work down to a node without a child on the
-         // appropriate side, then insert new node there
-         bool inserted = false;
-         Node * t = _header;
+  else
+  {
+    // Work down to a node without a child on the
+    // appropriate side, then insert new node there
+    bool inserted = false;
+    Node *t = _header;
 
-         while (! inserted)
-         {
-             if (key < t -> _key)
-                 if (t -> _lchild == NULL)
-                 {
-                     t -> _lchild = new Node();
-                     t -> _key = key;
-                     t -> _value = value;
-                     inserted = true;
-                 }
-                 else
-                     t = t -> _lchild;
-             else
-                 if (t -> _rchild == NULL)
-                 {
-                     t -> _rchild = new Node();
-                     t -> _key = key;
-                     t -> _value = value;
-                     inserted = true;
-                 }
-                 else
-                     t = t -> _rchild;
-         }
-     }
+    while (!inserted)
+    {
+      if (key < t->_key)
+      {
+        if (t->_lchild == NULL)
+        {
+          t->_lchild = new Node();
+          t->_key = key;
+          t->_value = value;
+          inserted = true;
+        }
+        else
+        {
+          t = t->_lchild;
+        }
+      }
+      else
+      if (t->_rchild == NULL)
+      {
+        t->_rchild = new Node();
+        t->_key = key;
+        t->_value = value;
+        inserted = true;
+      }
+      else
+      {
+        t = t->_rchild;
+      }
+    }
+  }
 }
 
 
@@ -72,14 +80,14 @@ void ThreadedBinarySearchTree::erase(Iterator iter)
 bool ThreadedBinarySearchTree::empty() const
 {
   //Below shows how to access the child of node
-    if (isThread(_header->_lchild) && (_header->_rchild == _header))
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+  if (isThread(_header->_lchild) && (_header->_rchild == _header))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 
