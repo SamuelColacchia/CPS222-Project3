@@ -23,7 +23,7 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
 }
 
-
+//NOTE | Untested
 void ThreadedBinarySearchTree::insert(string key, int value)
 {
   if (_header == NULL)
@@ -76,7 +76,7 @@ void ThreadedBinarySearchTree::erase(Iterator iter)
 { /* STUB - REPLACE WITH REAL CODE */
 }
 
-
+//NOTE | untested
 bool ThreadedBinarySearchTree::empty() const
 {
   //Below shows how to access the child of node
@@ -230,7 +230,7 @@ Iterator Iterator::operator --(int)
   return result;
 }
 
-
+//NOTE | Untested
 Iterator& Iterator::insucc()
 {
   if (isThread(_ptr->_rchild))
