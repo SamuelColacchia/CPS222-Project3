@@ -27,14 +27,27 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 //NOTE | Untested
 void ThreadedBinarySearchTree::insert(string key, int value)
 {
-  ThreadedBinarySearchTree();
-    _header = new Node();
-    cout << "header value: " << _header->_value << endl;
-    cout << "header key: " << _header->_key << endl;
+  //ThreadedBinarySearchTree();
+  cout << "header before" << endl;
+  cout << "header: " << _header << endl;
+  cout << "header value: " << _header->_value << endl;
+  cout << "header key: " << _header->_key << endl;
+  cout << "header lchild: " << _header->_lchild << endl;
+  cout << "header rchild " << _header->_rchild << endl;
+  _header = new Node();
   //  cout << "header is empty" << endl;
-    _header->_key = key;
-    _header->_value = value;
-
+  _header->_key = key;
+  _header->_value = value;
+  _header->_lchild = makeThread(_header);
+  _header->_rchild = _header;
+  cout << endl;
+  cout << endl;
+  cout << "header after" << endl;
+  cout << "header: " << _header << endl;
+  cout << "header value: " << _header->_value << endl;
+  cout << "header key: " << _header->_key << endl;
+  cout << "header lchild: " << _header->_lchild << endl;
+  cout << "header rchild " << _header->_rchild << endl;
 }
 
 
@@ -46,7 +59,9 @@ void ThreadedBinarySearchTree::erase(Iterator iter)
 //NOTE | TESTED and works as intended
 bool ThreadedBinarySearchTree::empty() const
 {
-  if (_header == NULL)
+  cout << "header lchild" << makePointer(_header->_lchild) << endl;
+  cout << "header" << _header << endl;
+  if (makePointer(_header->_lchild) == _header)
   {
     return true;
   }
