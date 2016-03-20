@@ -11,6 +11,7 @@ using namespace std;
 
 class ThreadedBinarySearchTree
 {
+
         /*
          * PURPOSE: Support storing and accessing of pairs consisting of a string
          *		and an integer in a binary search tree, with forward and
@@ -61,7 +62,7 @@ public:
         Iterator end() const;
 
 private:
-        void insertr();
+
 
         /* Copy constructor, assignment */
 
@@ -149,6 +150,7 @@ private:
         friend class Iterator;
 
 private:
+  void insertr(string key, int value, Node * & root);
 
         // Nodes of this type are used to actually store the tree
 

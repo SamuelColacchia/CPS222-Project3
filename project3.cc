@@ -29,8 +29,8 @@ void ThreadedBinarySearchTree::insert(string key, int value)
 {
   Node *newnode = new Node();
 
-  //ThreadedBinarySearchTree();
-  //_header->_lchild = new Node();
+  //TEST calls to see what the data looks likes
+  //currently only useful for the header node
   cout << "header before" << endl;
   cout << "header: " << _header << endl;
   cout << "header value: " << _header->_value << endl;
@@ -54,9 +54,10 @@ void ThreadedBinarySearchTree::insert(string key, int value)
   }
   else
   {
-    ThreadedBinarySearchTree::insertr();
+    ThreadedBinarySearchTree::insertr(key, value, _header);
   }
 
+  //After insert to make sure there is a change
   cout << endl;
   cout << endl;
   cout << "header after" << endl;
@@ -68,9 +69,22 @@ void ThreadedBinarySearchTree::insert(string key, int value)
 }
 
 
-void ThreadedBinarySearchTree::insertr()
+void ThreadedBinarySearchTree::insertr(string key, int value, Node * & root)
 {
   cout << "insert ran" << endl;
+  //
+  if (root == NULL)
+  {
+    Node newnode = new node();
+    root = newnode;
+
+    newnode
+  }
+  else if (key < root->_key)
+  {
+    insertr(key, value, root->)
+  }
+
 }
 
 
