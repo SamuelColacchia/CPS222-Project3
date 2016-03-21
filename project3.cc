@@ -69,22 +69,49 @@ void ThreadedBinarySearchTree::insert(string key, int value)
 }
 
 
-void ThreadedBinarySearchTree::insertr(string key, int value, Node * & root)
+void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
 {
-  cout << "insert ran" << endl;
-  //
-  if (root == NULL)
+  if (isThread(root->_lchild))
   {
     Node *newnode = new Node();
-    root = newnode;
 
-    
+    newnode->_lchild = root->_lchild;
+    newnode->_rchild = makeThread(root);
+    makePointer(root->_lchild);
+    root->_lchild = newnode;
+
+    newnode->_value = value;
+    newnode->_key = key;
+
   }
-  // else if (key < root->_key)
-  // {
-  //
-  // }
+  else if (isThread(root->_rchild))
+  {
+    Node *newnode = new Node();
 
+    newnode->_lchild = makeThread(root);
+    newnode->_rchild = makeThread(root->_rchild);
+    makePointer(root->_lchild);
+    root->_rchild = newnode;
+
+    newnode->_value = value;
+    newnode->_key = key;
+  }
+  else
+  {
+    if (key > root->_key)
+    {
+      insertr(key, value, root->_rchild);
+    }
+
+    else if (key < root->_key)
+    {
+      insertr(key, value, root->_lchild);
+    }
+    else
+    {
+      return;
+    }
+  }
 }
 
 
