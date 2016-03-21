@@ -31,12 +31,12 @@ void ThreadedBinarySearchTree::insert(string key, int value)
 
   //TEST calls to see what the data looks likes
   //currently only useful for the header node
-  cout << "header before" << endl;
-  cout << "header: " << _header << endl;
-  cout << "header value: " << _header->_value << endl;
-  cout << "header key: " << _header->_key << endl;
-  cout << "header lchild: " << _header->_lchild << endl;
-  cout << "header rchild " << _header->_rchild << endl;
+  // cout << "header before" << endl;
+  // cout << "header: " << _header << endl;
+  // cout << "header value: " << _header->_value << endl;
+  // cout << "header key: " << _header->_key << endl;
+  // cout << "header lchild: " << _header->_lchild << endl;
+  // cout << "header rchild " << _header->_rchild << endl;
 
   //  cout << "header is empty" << endl;
 
@@ -46,31 +46,39 @@ void ThreadedBinarySearchTree::insert(string key, int value)
    */
   if (empty())
   {
+    cout << "header before " << _header << endl;
+    cout << "header lchild before change " << _header->_lchild << endl;
+
     _header->_lchild = newnode;
+    cout << "heaer lchild after change " << _header->_lchild << endl;
     newnode->_lchild = makeThread(_header);
     newnode->_rchild = makeThread(_header);
     newnode->_value = value;
     newnode->_key = key;
+    cout << "newnode lchild " << newnode->_lchild << endl;
+    cout << "newnode rchild " << newnode->_rchild << endl;
   }
   else
   {
-    ThreadedBinarySearchTree::insertr(key, value, _header);
+    ThreadedBinarySearchTree::insertr(key, value, _header->_lchild);
   }
 
   //After insert to make sure there is a change
   cout << endl;
   cout << endl;
-  cout << "header after" << endl;
-  cout << "header: " << _header << endl;
-  cout << "header value: " << _header->_value << endl;
-  cout << "header key: " << _header->_key << endl;
-  cout << "header lchild: " << _header->_lchild << endl;
-  cout << "header rchild " << _header->_rchild << endl;
+  // cout << "header after" << endl;
+  // cout << "header: " << _header << endl;
+  // cout << "header value: " << _header->_value << endl;
+  // cout << "header key: " << _header->_key << endl;
+  // cout << "header lchild: " << _header->_lchild << endl;
+  // cout << "header rchild " << _header->_rchild << endl;
 }
 
 
 void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
 {
+  cout << "root: " << root << endl;
+  cout << "root-left status" << root->_lchild << endl;
   if (isThread(root->_lchild))
   {
     Node *newnode = new Node();
@@ -89,7 +97,7 @@ void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
     Node *newnode = new Node();
 
     newnode->_lchild = makeThread(root);
-    newnode->_rchild = makeThread(root->_rchild);
+    newnode->_rchild = root->_rchild;
     makePointer(root->_lchild);
     root->_rchild = newnode;
 
@@ -98,18 +106,16 @@ void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
   }
   else
   {
-    if (key > root->_key)
+    if (value > root->_value)
     {
+        cout << "if" << endl;
       insertr(key, value, root->_rchild);
     }
 
-    else if (key < root->_key)
+    else if (value < root->_value)
     {
+        cout << "elseif" << endl;
       insertr(key, value, root->_lchild);
-    }
-    else
-    {
-      return;
     }
   }
 }
