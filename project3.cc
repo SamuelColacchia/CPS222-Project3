@@ -21,14 +21,22 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
 
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
+  // Iterator it;
+  // it = inorder_begin();
+  // cout << "clean ran" << endl;
+  // for (it;it != end();it++)
+  // {
+  //   cout << "delete" << endl;
+  // }
+
+  //Adam and Dr Tuck
   Iterator it;
-  it = inorder_begin();
-  cout << "clean ran" << endl;
-  for (it;it != end();it++)
+  for (it = this->inorder_begin();  it != this ->end();it++)
   {
     cout << "delete" << endl;
   }
   delete _header;
+
 
 }
 /*
