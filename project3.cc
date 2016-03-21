@@ -24,61 +24,40 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 }
 
 
-//NOTE | Untested
+/*
+ * Insert function called when the user calls i in the program
+ * PARAM-key: the string used to determine tree position
+ * PARAM-value: value that for the node
+ */
 void ThreadedBinarySearchTree::insert(string key, int value)
 {
   Node *newnode = new Node();
 
-  //TEST calls to see what the data looks likes
-  //currently only useful for the header node
-  // cout << "header before" << endl;
-  // cout << "header: " << _header << endl;
-  // cout << "header value: " << _header->_value << endl;
-  // cout << "header key: " << _header->_key << endl;
-  // cout << "header lchild: " << _header->_lchild << endl;
-  // cout << "header rchild " << _header->_rchild << endl;
-
-  //  cout << "header is empty" << endl;
-
-  /*
-   * If our tree is empty get things started
-   * starting node in our tree;
-   */
+  //Deal with the case that are first item is the header
   if (empty())
   {
-    cout << "header before " << _header << endl;
-    cout << "header lchild before change " << _header->_lchild << endl;
-
     _header->_lchild = newnode;
-    cout << "heaer lchild after change " << _header->_lchild << endl;
     newnode->_lchild = makeThread(_header);
     newnode->_rchild = makeThread(_header);
     newnode->_value = value;
     newnode->_key = key;
-    cout << "newnode lchild " << newnode->_lchild << endl;
-    cout << "newnode rchild " << newnode->_rchild << endl;
+
   }
   else
   {
     ThreadedBinarySearchTree::insertr(key, value, _header->_lchild);
   }
-
-  //After insert to make sure there is a change
-  cout << endl;
-  cout << endl;
-  // cout << "header after" << endl;
-  // cout << "header: " << _header << endl;
-  // cout << "header value: " << _header->_value << endl;
-  // cout << "header key: " << _header->_key << endl;
-  // cout << "header lchild: " << _header->_lchild << endl;
-  // cout << "header rchild " << _header->_rchild << endl;
 }
 
-
+/*
+* Recursive insertion called by insert()
+* PARAM-key: the string used to determine tree position
+* PARAM-value: value that for the node
+* PARAM-root: the starting node for each recursion
+*/
 void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
 {
-  cout << "root: " << root << endl;
-  cout << "root-left status" << root->_lchild << endl;
+
   if (isThread(root->_lchild))
   {
     Node *newnode = new Node();
@@ -90,7 +69,6 @@ void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
 
     newnode->_value = value;
     newnode->_key = key;
-
   }
   else if (isThread(root->_rchild))
   {
@@ -106,15 +84,13 @@ void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
   }
   else
   {
-    if (value > root->_value)
+    if (key > root->_key)
     {
-        cout << "if" << endl;
       insertr(key, value, root->_rchild);
     }
 
-    else if (value < root->_value)
+    else if (key < root->_key)
     {
-        cout << "elseif" << endl;
       insertr(key, value, root->_lchild);
     }
   }
