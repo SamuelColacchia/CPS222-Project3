@@ -141,8 +141,8 @@ private:
                 // Node in the tree that iterator currently refers to,
                 // Traversal order for this iterator
 
-                const Node *    _header;
-                Node *      _ptr;
+                const Node * _header;
+                Node * _ptr;
                 Order _order;
         };
 
@@ -150,7 +150,7 @@ private:
         friend class Iterator;
 
 private:
-  void insertr(string key, int value, Node * & root);
+        void insertr(string key, int value, Node * & root);
 
         // Nodes of this type are used to actually store the tree
 

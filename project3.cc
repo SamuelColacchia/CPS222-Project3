@@ -21,9 +21,16 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
 
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
+  Iterator it;
+  it = inorder_begin();
+  cout << "clean ran" << endl;
+  for (it;it != end();it++)
+  {
+    cout << "delete" << endl;
+  }
+  delete _header;
+
 }
-
-
 /*
  * Insert function called when the user calls i in the program
  * PARAM-key: the string used to determine tree position
