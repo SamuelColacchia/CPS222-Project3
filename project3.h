@@ -151,6 +151,7 @@ private:
 
 private:
         void insertr(string key, int value, Node * & root);
+        void lookupr(string key, Node * & root);
 
         // Nodes of this type are used to actually store the tree
 
