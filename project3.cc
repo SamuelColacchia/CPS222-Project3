@@ -330,10 +330,21 @@ Iterator& Iterator::insucc()
 
 
 Iterator& Iterator::inpred()
-{ /* STUB - REPLACE WITH REAL CODE */
+{
+        if (isThread(_ptr->_lchild))
+        {
+                _ptr = makePointer(_ptr->_lchild);
+        }
+        else
+        {
+                _ptr = _ptr->_lchild;
+                while (!isThread(_ptr->_rchild))
+                {
+                        _ptr = _ptr->_rchild;
+                }
+        }
         return *this;
 }
-
 
 Iterator& Iterator::presucc()
 { /* STUB - REPLACE WITH REAL CODE */
