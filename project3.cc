@@ -78,7 +78,7 @@ void ThreadedBinarySearchTree::insert(string key, int value)
 void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
 {
 
-        if (isThread(root->_lchild))
+        if (isThread(root->_lchild) && key < root->_key)
         {
                 Node *newnode = new Node();
 
@@ -90,7 +90,7 @@ void ThreadedBinarySearchTree::insertr(string key, int value, Node *& root)
                 newnode->_value = value;
                 newnode->_key = key;
         }
-        else if (isThread(root->_rchild))
+        else if (isThread(root->_rchild) && key > root->_key)
         {
                 Node *newnode = new Node();
 
@@ -342,16 +342,22 @@ Iterator& Iterator::presucc()
         else if (!isThread(_ptr->_rchild))
                 _ptr = _ptr->_rchild;
         else{
-                if (isThread(_ptr->_rchild))
+          while(isThread(_ptr->_rchild))
+          {
+            _ptr = makePointer(_ptr->_rchild);
+          }
+          _ptr = _ptr->_rchild;
 
-                       _ptr = makePointer(_ptr->_lchild);
-
-                else{
-                        while (isThread(_ptr->_rchild))
-                        {
-                                _ptr = _ptr->_rchild;
-                        }
-                         _ptr = makePointer(_ptr->_lchild);}
+                // if (isThread(_ptr->_rchild))
+                //
+                //        _ptr = makePointer(_ptr->_lchild);
+                //
+                // else{
+                //         while (isThread(_ptr->_rchild))
+                //         {
+                //                 _ptr = _ptr->_rchild;
+                //         }
+                //          _ptr = makePointer(_ptr->_lchild);}
         }
 
         //from lecture notes, but it puts code into infinite loop
