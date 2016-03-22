@@ -21,6 +21,7 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
 
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
+<<<<<<< HEAD
   // Iterator it;
   // it = inorder_begin();
   // cout << "clean ran" << endl;
@@ -38,6 +39,25 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
   }
   delete _header;
 }
+=======
+        // Iterator it;
+        // it = inorder_begin();
+        // cout << "clean ran" << endl;
+        // for (it;it != end();it++)
+        // {
+        //   cout << "delete" << endl;
+        // }
+
+        //Adam and Dr Tuck
+        Iterator it;
+        for (it = this->inorder_begin(); it != this->end(); it++)
+        {
+                temp node = to pointer
+                go through
+                delete pointer
+        }
+        delete pointer;
+>>>>>>> master
 
 
 /*
@@ -137,6 +157,7 @@ bool ThreadedBinarySearchTree::empty() const
 
 Iterator ThreadedBinarySearchTree::lookup(string key) const
 {
+<<<<<<< HEAD
   return end();
 }
 
@@ -160,6 +181,24 @@ Iterator ThreadedBinarySearchTree::lookup(string key) const
 //   //   lookup(key, _root->_rchild);
 //   // }
 // }
+=======
+        Node *newnode = new Node();
+        newnode = ThreadedBinarySearchTree::lookupr(string key,  _header->_lchild );
+}
+
+void ThreadedBinarySearchTree::lookupr(string key,  Node *& root )
+{
+
+        if (empty())
+                return NULL;
+        else if (key == root->_key)
+                return root->_key;
+        else if (key > root->_key)
+                lookupr(key,_root->_lchild);
+        else
+                lookupr(key,_root->_rchild);
+}
+>>>>>>> master
 
 
 Iterator ThreadedBinarySearchTree::inorder_begin() const
