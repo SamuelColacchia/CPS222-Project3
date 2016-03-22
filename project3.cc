@@ -139,21 +139,21 @@ bool ThreadedBinarySearchTree::empty() const
 Iterator ThreadedBinarySearchTree::lookup(string key) const
 {
 
-if (empty())
-{
-        return end();
-}
-else
-{
-        Iterator it;
-        for (it = this->inorder_begin(); it != this->end(); it++)
+        if (empty())
         {
-                if (key == it._ptr->_key) {
-                        return it;
-                }
+                return end();
         }
-        return end();
-}
+        else
+        {
+                Iterator it;
+                for (it = this->inorder_begin(); it != this->end(); it++)
+                {
+                        if (key == it._ptr->_key) {
+                                return it;
+                        }
+                }
+                return end();
+        }
 
 //        ThreadedBinarySearchTree::lookupr(key, _header);
 
@@ -347,7 +347,20 @@ Iterator& Iterator::inpred()
 }
 
 Iterator& Iterator::presucc()
-{ /* STUB - REPLACE WITH REAL CODE */
+{
+        if (isThread(_ptr->_lchild))
+        {
+                _ptr = _ptr->_lchild;
+        }
+        else if (isThread(_ptr->_rchild))
+        {
+                _ptr = _ptr->_rchild;
+
+        }
+        else{
+                _ptr = makePointer();
+        }
+
         return *this;
 }
 
