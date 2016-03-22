@@ -352,34 +352,37 @@ Iterator& Iterator::prepred()
 {
   int count = 0;
   Node *parent = this->parent()._ptr;
+
   if (_ptr == parent->_lchild)
   {
     _ptr = parent;
   }
 
-  else if ((_ptr == parent->_rchild) && isThread(parent->_rchild))
+  else if ((_ptr == parent->_rchild) && isThread(parent->_lchild))
   {
     _ptr = makePointer(parent);
   }
   else
   {
-    while (!isThread(_ptr->_lchild))
+    if (parent->_rchild == _ptr)
     {
-    //  cout << count ++ << endl;
-    //  cout << _ptr << endl;
-      if (_ptr == _header) {
-        _ptr = _ptr -> _lchild;
-      }
-      else if (!isThread(_ptr->_rchild))
+      _ptr = parent->_lchild;
+    }
+
+      while (!isThread(_ptr->_lchild) || !isThread(_ptr->_rchild))
       {
-      //  cout << "went right" << endl;
-        _ptr = _ptr->_rchild;
-      }
-      else
-      {
-      //  cout << "went left" << endl;
-        _ptr = _ptr->_lchild;
-      }
+
+        if (!isThread(_ptr->_rchild))
+        {
+
+          _ptr = _ptr->_rchild;
+        }
+        else
+        {
+
+          _ptr = _ptr->_lchild;
+        }
+
     }
   }
   return *this;
