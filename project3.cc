@@ -350,6 +350,23 @@ Iterator& Iterator::presucc()
 
 Iterator& Iterator::prepred()
 { /* STUB - REPLACE WITH REAL CODE */
+  if (_ptr == parent()->_lchild)
+  {
+    _ptr = parent();
+  }
+
+  else if (_ptr == parent()->_rchild && isThread(parent()->_rchild))
+  {
+    _ptr = parenr();
+  }
+  else
+  {
+    while (!isThread(_ptr->_lchild))
+    {
+      _ptr = makePointer(_ptr->_rchild);
+    }
+    _ptr = _ptr->_rchild;
+  }
   return *this;
 }
 
