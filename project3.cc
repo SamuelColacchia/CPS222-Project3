@@ -337,33 +337,34 @@ Iterator& Iterator::inpred()
 Iterator& Iterator::presucc()
 {
         if (!isThread(_ptr->_lchild))
-                _ptr = makePointer(_ptr->_lchild);
+                _ptr = _ptr->_lchild;
 
         else if (!isThread(_ptr->_rchild))
-                _ptr = makePointer(_ptr->_rchild);
-
+                _ptr = _ptr->_rchild;
         else{
-                if (!isThread(_ptr->_rchild))
+                if (isThread(_ptr->_rchild))
 
                        _ptr = makePointer(_ptr->_lchild);
 
-                else
+                else{
                         while (isThread(_ptr->_rchild))
                         {
                                 _ptr = _ptr->_rchild;
                         }
-                         _ptr = makePointer(_ptr->_lchild);
+                         _ptr = makePointer(_ptr->_lchild);}
         }
 
         //from lecture notes, but it puts code into infinite loop
-        // return *this;
         //
-        // if (! isThread(_ptr -> _lchild))
+        //
+        // if(!isThread(_ptr -> _lchild))
         //         _ptr = _ptr -> _lchild;
-        // else if (! isThread(_ptr -> _rchild))
+        // else if (!isThread(_ptr -> _rchild))
         //         _ptr =  _ptr -> _rchild;
         // else
         //         _ptr =  makePointer(_ptr -> _rchild);
+
+
          return *this;
 }
 
