@@ -50,15 +50,25 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 
         //Adam and Dr Tuck
         Iterator it;
+        Node * tempnode;
         for (it = this->inorder_begin(); it != this->end(); it++)
         {
-                temp node = to pointer
+                //temp node = to pointer
 
-                delete pointer
+                tempnode = it._ptr;
+
+                // delete it._ptr._lchild;
+                // delete it._ptr._rchild;
+
+                delete it._ptr;
+              //  delete tempnode;
+        //        delete pointer
         }
-        delete pointer;
+        // delete pointer;
 
+       delete _header;
 
+}
 
 /*
  * Insert function called when the user calls i in the program
@@ -67,11 +77,12 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
  */
 void ThreadedBinarySearchTree::insert(string key, int value)
 {
-  Node *newnode = new Node();
+
 
   //Deal with the case that are first item is the header
   if (empty())
   {
+    Node *newnode = new Node();
     _header -> _lchild = newnode;
 
     newnode->_lchild = makeThread(_header);
@@ -157,9 +168,9 @@ bool ThreadedBinarySearchTree::empty() const
 
 Iterator ThreadedBinarySearchTree::lookup(string key) const
 {
-<<<<<<< HEAD
-  return end();
-}
+
+//   return end();
+// }
 
 
 // void ThreadedBinarySearchTree::lookupr(string key, Node *& root)
@@ -181,24 +192,26 @@ Iterator ThreadedBinarySearchTree::lookup(string key) const
 //   //   lookup(key, _root->_rchild);
 //   // }
 // }
-=======
-        Node *newnode = new Node();
-        newnode = ThreadedBinarySearchTree::lookupr(string key,  _header->_lchild );
+
+        // Node *newnode = new Node();
+        // newnode = ThreadedBinarySearchTree::lookupr(string key,  _header->_lchild );
+        return end();
 }
 
-void ThreadedBinarySearchTree::lookupr(string key,  Node *& root )
-{
 
-        if (empty())
-                return NULL;
-        else if (key == root->_key)
-                return root->_key;
-        else if (key > root->_key)
-                lookupr(key,_root->_lchild);
-        else
-                lookupr(key,_root->_rchild);
-}
->>>>>>> master
+// void ThreadedBinarySearchTree::lookupr(string key,  Node *& root )
+// {
+//
+//         if (empty())
+//                 return NULL;
+//         else if (key == root->_key)
+//                 return root->_key;
+//         else if (key > root->_key)
+//                 lookupr(key,_root->_lchild);
+//         else
+//                 lookupr(key,_root->_rchild);
+// }
+
 
 
 Iterator ThreadedBinarySearchTree::inorder_begin() const
