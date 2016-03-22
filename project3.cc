@@ -349,23 +349,38 @@ Iterator& Iterator::presucc()
 
 
 Iterator& Iterator::prepred()
-{ /* STUB - REPLACE WITH REAL CODE */
-  if (_ptr == parent()->_lchild)
+{
+  int count = 0;
+  Node *parent = this->parent()._ptr;
+  if (_ptr == parent->_lchild)
   {
-    _ptr = parent();
+    _ptr = parent;
   }
 
-  else if (_ptr == parent()->_rchild && isThread(parent()->_rchild))
+  else if ((_ptr == parent->_rchild) && isThread(parent->_rchild))
   {
-    _ptr = parenr();
+    _ptr = makePointer(parent);
   }
   else
   {
     while (!isThread(_ptr->_lchild))
     {
-      _ptr = makePointer(_ptr->_rchild);
+    //  cout << count ++ << endl;
+    //  cout << _ptr << endl;
+      if (_ptr == _header) {
+        _ptr = _ptr -> _lchild;
+      }
+      else if (!isThread(_ptr->_rchild))
+      {
+      //  cout << "went right" << endl;
+        _ptr = _ptr->_rchild;
+      }
+      else
+      {
+      //  cout << "went left" << endl;
+        _ptr = _ptr->_lchild;
+      }
     }
-    _ptr = _ptr->_rchild;
   }
   return *this;
 }
@@ -386,15 +401,15 @@ Iterator& Iterator::postpred()
 Iterator Iterator::parent() const
 {
   bool found = false;
-  Node *tempnode = (Node*)_header;
+  Node *tempnode = (Node *)_header;
 
   while (!found)
   {
-    if (!isThread(tempnode->_lchild) && key() == tempnode->_lchild->_key)
+    if (!isThread(tempnode->_lchild) && (key() == tempnode->_lchild->_key))
     {
       return Iterator(_header, tempnode, Iterator::UNDEFINED);
     }
-    else if (!isThread(tempnode->_rchild) && key() == tempnode->_rchild->_key)
+    else if (!isThread(tempnode->_rchild) && (key() == tempnode->_rchild->_key))
     {
       return Iterator(_header, tempnode, Iterator::UNDEFINED);
     }
