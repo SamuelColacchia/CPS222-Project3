@@ -135,31 +135,46 @@ bool ThreadedBinarySearchTree::empty() const
         }
 }
 
-/*
+
 Iterator ThreadedBinarySearchTree::lookup(string key) const
 {
 
-
-        Node *newnode = new Node();
-        newnode = ThreadedBinarySearchTree::lookupr(key,  _header->_lchild );
+if (empty())
+{
+        return end();
+}
+else
+{
+        Iterator it;
+        for (it = this->inorder_begin(); it != this->end(); it++)
+        {
+                if (key == it._ptr->_key) {
+                        return it;
+                }
+        }
         return end();
 }
 
+//        ThreadedBinarySearchTree::lookupr(key, _header);
 
-void ThreadedBinarySearchTree::lookupr(String key, Node *& root )
-{
-
-        if (empty())
-                return NULL;
-        else if (key == root->_key)
-                return root;
-        else if (key > root->_key)
-                lookupr(key,_root->_lchild);
-        else
-                lookupr(key,_root->_rchild);
 }
 
-*/
+
+// Iterator ThreadedBinarySearchTree::lookupr(string key, Node *& root)
+// {
+//         //
+//         // if (empty())
+//         //         return NULL;
+//         // else if (key == root->_key)
+//         //         return root;
+//         // else if (key > root->_key)
+//         //         lookupr(key,_root->_lchild);
+//         // else
+//         //         lookupr(key,_root->_rchild);
+//         return end();
+// }
+
+
 
 Iterator ThreadedBinarySearchTree::inorder_begin() const
 {
