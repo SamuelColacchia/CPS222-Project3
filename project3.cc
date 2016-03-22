@@ -21,7 +21,7 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
 
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
-<<<<<<< HEAD
+
   // Iterator it;
   // it = inorder_begin();
   // cout << "clean ran" << endl;
@@ -31,15 +31,15 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
   // }
 
   //Adam and Dr Tuck
-  Iterator it;
+//   Iterator it;
+//
+//   for (it = this->inorder_begin(); it != this->end(); it++)
+//   {
+//     cout << "delete" << endl;
+//   }
+//   delete _header;
+// }
 
-  for (it = this->inorder_begin(); it != this->end(); it++)
-  {
-    cout << "delete" << endl;
-  }
-  delete _header;
-}
-=======
         // Iterator it;
         // it = inorder_begin();
         // cout << "clean ran" << endl;
@@ -53,11 +53,11 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
         for (it = this->inorder_begin(); it != this->end(); it++)
         {
                 temp node = to pointer
-                go through
+
                 delete pointer
         }
         delete pointer;
->>>>>>> master
+
 
 
 /*
