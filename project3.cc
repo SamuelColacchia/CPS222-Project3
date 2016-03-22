@@ -160,19 +160,6 @@ Iterator ThreadedBinarySearchTree::lookup(string key) const
 }
 
 
-// Iterator ThreadedBinarySearchTree::lookupr(string key, Node *& root)
-// {
-//         //
-//         // if (empty())
-//         //         return NULL;
-//         // else if (key == root->_key)
-//         //         return root;
-//         // else if (key > root->_key)
-//         //         lookupr(key,_root->_lchild);
-//         // else
-//         //         lookupr(key,_root->_rchild);
-//         return end();
-// }
 
 
 
@@ -346,22 +333,38 @@ Iterator& Iterator::inpred()
         return *this;
 }
 
+//close but getting a core dump error in the else statment
 Iterator& Iterator::presucc()
 {
-        if (isThread(_ptr->_lchild))
-        {
-                _ptr = _ptr->_lchild;
-        }
-        else if (isThread(_ptr->_rchild))
-        {
-                _ptr = _ptr->_rchild;
+        if (!isThread(_ptr->_lchild))
+                _ptr = makePointer(_ptr->_lchild);
 
-        }
+        else if (!isThread(_ptr->_rchild))
+                _ptr = makePointer(_ptr->_rchild);
+
         else{
-                _ptr = makePointer();
+                if (!isThread(_ptr->_rchild))
+
+                       _ptr = makePointer(_ptr->_lchild);
+
+                else
+                        while (isThread(_ptr->_rchild))
+                        {
+                                _ptr = _ptr->_rchild;
+                        }
+                         _ptr = makePointer(_ptr->_lchild);
         }
 
-        return *this;
+        //from lecture notes, but it puts code into infinite loop
+        // return *this;
+        //
+        // if (! isThread(_ptr -> _lchild))
+        //         _ptr = _ptr -> _lchild;
+        // else if (! isThread(_ptr -> _rchild))
+        //         _ptr =  _ptr -> _rchild;
+        // else
+        //         _ptr =  makePointer(_ptr -> _rchild);
+         return *this;
 }
 
 
