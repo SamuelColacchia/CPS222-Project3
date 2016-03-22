@@ -392,7 +392,7 @@ Iterator& Iterator::postsucc()
 
   if (_ptr == _header->_lchild)
   {
-    _ptr = (Node*)_header;
+    _ptr = (Node *)_header;
     return *this;
   }
   if (_ptr == _header)
@@ -421,7 +421,6 @@ Iterator& Iterator::postsucc()
   }
   else
   {
-
     if (!onechild && (parent != _header))
     {
       _ptr = parent->_rchild;
@@ -437,14 +436,43 @@ Iterator& Iterator::postsucc()
         _ptr = _ptr->_rchild;
       }
     }
-
   }
   return *this;
 }
 
 
 Iterator& Iterator::postpred()
-{ /* STUB - REPLACE WITH REAL CODE */
+{
+  if (_ptr == _header)
+  {
+    _ptr = _ptr->_lchild;
+  }
+
+  else if (!isThread(_ptr->_rchild))
+  {
+    _ptr = _ptr->_rchild;
+  }
+
+  else if (!isThread(_ptr->_lchild))
+  {
+    _ptr = _ptr->_lchild;
+  }
+
+  else
+  {
+    while (isThread(_ptr->_lchild))
+    {
+      _ptr = makePointer(_ptr->_lchild);
+    }
+    if (_ptr == _header)
+    {
+      return *this;
+    }
+    else
+    {
+      _ptr = _ptr->_lchild;
+    }
+  }
   return *this;
 }
 
