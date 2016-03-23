@@ -16,7 +16,7 @@ T 7
 R 7
 #
 # lookup tests
-# 
+#
 L THIS
 L IS
 L NOT
@@ -26,7 +26,7 @@ L DATA
 L !
 #
 # parent tests
-# 
+#
 P THIS
 P IS
 P NOT
@@ -44,6 +44,4 @@ E ENOUGH
 E TEST
 E DATA
 E !
-#
-# Did you get the message that this is not enough test data?
-#
+# hi

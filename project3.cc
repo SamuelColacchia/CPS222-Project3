@@ -25,15 +25,15 @@ ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
         Iterator it;
         Node *tempnode;
 
-        for (it = this->inorder_begin(); it != this->end(); it++)
-        {
-                tempnode = it._ptr;
+  for (it = this->inorder_begin(); it != this->end(); it++)
+  {
+    //temp node = to pointer
+    tempnode = it._ptr;
+    delete it._ptr;
+  }
+  // delete pointer;
 
-                delete it._ptr;
-        }
-        // delete pointer;
-
-        delete _header;
+  delete _header;
 }
 
 
