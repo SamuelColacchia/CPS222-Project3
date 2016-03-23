@@ -18,7 +18,11 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
   _header->_rchild = _header;
 }
 
-
+/*
+* Destructor for the program called when the user enters q
+* Ensures all nodes are deleted
+* If done correctly we are a good steward of nodes
+*/
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
   //Adam and Dr Tuck
