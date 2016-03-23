@@ -540,32 +540,44 @@ Iterator& Iterator::postpred()
 //find the parent of the pointer
 Iterator Iterator::parent() const
 {
+
         bool found = false;
+        //create a new node pointed to the header
         Node *tempnode = (Node *)_header;
 
         while (!found)
         {
+                //if lchild is a pointer  and the key is greater then the childs key
                 if (!isThread(tempnode->_lchild) && (key() == tempnode->_lchild->_key))
                 {
+                        //return the pointer
                         return Iterator(_header, tempnode, Iterator::UNDEFINED);
                 }
+                //if there is a rchild and the key is equal to the rchild's key
                 else if (!isThread(tempnode->_rchild) && (key() == tempnode->_rchild->_key))
                 {
+                        //return the pointer
                         return Iterator(_header, tempnode, Iterator::UNDEFINED);
                 }
                 else
                 {
+                        //if the node is the header
                         if (tempnode == _header)
                         {
+                                //go to the lchild
                                 tempnode = tempnode->_lchild;
                         }
+                        //if the key is greater the current pointers node
                         else if (key() > tempnode->_key)
                         {
+                                //go to the rchild
                                 tempnode = tempnode->_rchild;
                         }
 
+                        //if the key is less then the current nodes key
                         else if (key() < tempnode->_key)
                         {
+                                //go to the lchild 
                                 tempnode = tempnode->_lchild;
                         }
                 }
