@@ -577,7 +577,7 @@ Iterator Iterator::parent() const
                         //if the key is less then the current nodes key
                         else if (key() < tempnode->_key)
                         {
-                                //go to the lchild 
+                                //go to the lchild
                                 tempnode = tempnode->_lchild;
                         }
                 }
