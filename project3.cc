@@ -18,7 +18,11 @@ ThreadedBinarySearchTree::ThreadedBinarySearchTree()
   _header->_rchild = _header;
 }
 
-
+/*
+* Destructor called when the user clicks q in the program
+* Iterators through the program deleting all nodes
+* To ensure we are a good steward of nodes
+*/
 ThreadedBinarySearchTree::~ThreadedBinarySearchTree()
 {
   //Adam and Dr Tuck
@@ -143,7 +147,11 @@ void ThreadedBinarySearchTree::erase(Iterator iter)
 }
 
 
-//NOTE | TESTED and works as intended
+/*
+* Determine if the tree is empty
+* RETURN-true: if there is only a header
+* RETRUN-false: if there is atleast one node
+*/
 bool ThreadedBinarySearchTree::empty() const
 {
   if (makePointer(_header->_lchild) == _header)
@@ -156,7 +164,10 @@ bool ThreadedBinarySearchTree::empty() const
   }
 }
 
-
+/*
+* Lookup function called the user clicks l
+* PARAM-key: the string used to determine tree position
+*/
 Iterator ThreadedBinarySearchTree::lookup(string key) const
 {
   if (empty())
@@ -175,8 +186,6 @@ Iterator ThreadedBinarySearchTree::lookup(string key) const
     }
     return end();
   }
-
-//        ThreadedBinarySearchTree::lookupr(key, _header);
 }
 
 
