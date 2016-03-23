@@ -314,34 +314,42 @@ Iterator Iterator::operator --(int)
 }
 
 
-//NOTE | Untested
+//indorder traversal
 Iterator& Iterator::insucc()
 {
+        //check if the rchild is a thread
         if (isThread(_ptr->_rchild))
         {
+                // if so make a pointer to rchild
                 _ptr = makePointer(_ptr->_rchild);
         }
         else
-        {
+        {       //if its a pinter, follow rchild
                 _ptr = _ptr->_rchild;
+                //while lchild isnt a thread, follow down to bottom
                 while (!isThread(_ptr->_lchild))
                 {
                         _ptr = _ptr->_lchild;
                 }
         }
+        //return current pointer
         return *this;
 }
 
-
+//indorder reversed traversal
 Iterator& Iterator::inpred()
 {
+        //check if the lchild is a thread
         if (isThread(_ptr->_lchild))
         {
+                // if so make a pointer to lchild
                 _ptr = makePointer(_ptr->_lchild);
         }
         else
         {
+                //if its a pinter, follow lchild
                 _ptr = _ptr->_lchild;
+                //while rchild isnt a thread, follow down to bottom
                 while (!isThread(_ptr->_rchild))
                 {
                         _ptr = _ptr->_rchild;
@@ -350,57 +358,67 @@ Iterator& Iterator::inpred()
         return *this;
 }
 
-
-//close but getting a core dump error in the else statment
+//preorder traversal
 Iterator& Iterator::presucc()
 {
+        //if lchild is a pointer follow lchild
         if (!isThread(_ptr->_lchild))
         {
                 _ptr = _ptr->_lchild;
         }
-
+        //if rchild is a pointer follow rchild
         else if (!isThread(_ptr->_rchild))
         {
                 _ptr = _ptr->_rchild;
         }
         else
         {
+                //while rchild is a thread, make a pointer of rchild then follow it to its rchild
                 while (isThread(_ptr->_rchild))
                 {
                         _ptr = makePointer(_ptr->_rchild);
                 }
+                //go to the rchild of the current pointer
                 _ptr = _ptr->_rchild;
         }
         return *this;
 }
 
-
+//preorder reverse traversal
 Iterator& Iterator::prepred()
 {
+        //create a node for the parent
         Node *parent = this->parent()._ptr;
 
+        //if pointer is the parent of the left child
         if (_ptr == parent->_lchild)
         {
+                //move to the parent node
                 _ptr = parent;
         }
-
+        //if the pointer is the rchild, and there is not lchild
         else if ((_ptr == parent->_rchild) && isThread(parent->_lchild))
         {
+                // make pointer to the parent
                 _ptr = makePointer(parent);
         }
         else
         {
+                // if the pointer is the rchild
                 if (parent->_rchild == _ptr)
                 {
+                        //go to the lchild of the parent
                         _ptr = parent->_lchild;
                 }
-
+                //while there is a lchild is or lchild
                 while (!isThread(_ptr->_lchild) || !isThread(_ptr->_rchild))
                 {
+                        // if ther is a rchild, go the the rchild
                         if (!isThread(_ptr->_rchild))
                         {
                                 _ptr = _ptr->_rchild;
                         }
+                        //if there is a lchild go to the lchild
                         else
                         {
                                 _ptr = _ptr->_lchild;
@@ -410,54 +428,67 @@ Iterator& Iterator::prepred()
         return *this;
 }
 
-
+//post order
 Iterator& Iterator::postsucc()
 {
+        //create a node that points to the parent
         Node *parent = this->parent()._ptr;
-
+        //create a boool checking for number of siblings
         bool onechild;
-
+        //if pointer is a lchild of the header
         if (_ptr == _header->_lchild)
         {
+                //create a node for the header then return
                 _ptr = (Node *)_header;
                 return *this;
         }
+        //if pointer is the header  go the the lchild
         if (_ptr == _header)
         {
                 _ptr = _ptr->_lchild;
         }
 
-
+        //if there is no lchild but there is a rchild
         if (isThread(parent->_lchild) && !isThread(parent->_rchild))
         {
+                //set onechild to true
                 onechild = true;
         }
+        //if there is no rchild but there is a lchild
         else if (isThread(parent->_rchild) && !isThread(parent->_lchild))
         {
+                //set onchild to true
                 onechild = true;
         }
         else
         {
+                // if it has two children set onechild to false
                 onechild = false;
         }
 
-
+        //if the pointer is the rchild or the only child, and if it is not the header
         if (((_ptr == parent->_rchild) || onechild) && (parent != _header))
         {
+                // make the parent the pointer
                 _ptr = parent;
         }
         else
         {
+                // if it has two children and the parent is not the header
                 if (!onechild && (parent != _header))
                 {
+                        // go to the rchild
                         _ptr = parent->_rchild;
                 }
+                // while there is a lchild or a rchild
                 while (!isThread(_ptr->_lchild) || !isThread(_ptr->_rchild))
                 {
+                        //if there is a lchild go to the child
                         if (!isThread(_ptr->_lchild))
                         {
                                 _ptr = _ptr->_lchild;
                         }
+                        //else if there is a r child, go to the r child
                         else if (!isThread(_ptr->_rchild))
                         {
                                 _ptr = _ptr->_rchild;
@@ -467,34 +498,37 @@ Iterator& Iterator::postsucc()
         return *this;
 }
 
-
+//reverse post traversal
 Iterator& Iterator::postpred()
 {
+        //if pointer is the header, go to the lchild
         if (_ptr == _header)
         {
                 _ptr = _ptr->_lchild;
         }
-
+        //else if there is a rchild, go to the r child
         else if (!isThread(_ptr->_rchild))
         {
                 _ptr = _ptr->_rchild;
         }
-
+        //else if there is a lchild go to the lchild
         else if (!isThread(_ptr->_lchild))
         {
                 _ptr = _ptr->_lchild;
         }
-
+        //if there is no children
         else
-        {
+        {       //follwo the lchild thread to lchild is a pointer
                 while (isThread(_ptr->_lchild))
                 {
                         _ptr = makePointer(_ptr->_lchild);
                 }
+                //if the pointer is the header, return
                 if (_ptr == _header)
                 {
                         return *this;
                 }
+                //else go to the lchild
                 else
                 {
                         _ptr = _ptr->_lchild;
@@ -503,7 +537,7 @@ Iterator& Iterator::postpred()
         return *this;
 }
 
-
+//find the parent of the pointer
 Iterator Iterator::parent() const
 {
         bool found = false;
