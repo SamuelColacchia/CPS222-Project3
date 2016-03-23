@@ -1,0 +1,51 @@
+# myTest.in
+#
+# insertions
+#
+I k 8
+I g 9
+I h 10
+I e 1
+I d 2
+I c 3
+I b 4
+I a 5
+I f 6
+#
+# traversal tests - test all 3 traversals forward and reverse
+#
+T 7
+R 7
+#
+# lookup tests
+#
+L a
+L b
+L c
+L d
+L e
+L f
+l g
+l h
+l k
+#
+# parent tests
+#
+P a
+P k
+P d
+P e
+P h
+P g
+P f
+#
+# erase tests
+#
+E a
+E e
+E d
+E h
+E g
+E f
+E k
+# hi
