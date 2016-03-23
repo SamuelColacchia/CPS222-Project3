@@ -1,5 +1,6 @@
 // SOMETHING NEEDS TO GO HERE!  WHY NOT DO IT NOW?
 
+
 #include "project3.h"
 #include <iomanip>
 using namespace std;
@@ -63,7 +64,7 @@ Iterator ThreadedBinarySearchTree::end() const
 
 bool ThreadedBinarySearchTree::isThread(Node * ptr)
 { return (((long) ptr) & THREAD_FLAG_MASK) != 0; }
- 
+
 ThreadedBinarySearchTree::Node * ThreadedBinarySearchTree::makeThread(Node * ptr)
 { return (Node *) (((long) ptr) | THREAD_FLAG_MASK); }
 
@@ -74,7 +75,7 @@ ThreadedBinarySearchTree::Node * ThreadedBinarySearchTree::makePointer(Node * th
  * Methods of class ThreadedBinarySearchTree::Iterator
  *
  */
-        
+
 Iterator::Iterator()
   : _header(NULL), _ptr(NULL), _order(UNDEFINED)
 { }
@@ -163,7 +164,7 @@ bool Iterator::operator != (const Iterator & other) const
 { return _ptr != other._ptr || _ptr == NULL; }
 
 Iterator::Iterator(const Node * header,
-                   Node * ptr, 
+                   Node * ptr,
                    Order order)
   : _header(header), _ptr(ptr), _order(order)
 { }
